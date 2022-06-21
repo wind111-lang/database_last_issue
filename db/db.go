@@ -6,13 +6,18 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"golang.org/x/crypto"
 )
+
+// type Loc struct {
+// 	Location string `json:"location"`
+// }
 
 func gormConnect() *gorm.DB {
 
 	user := "user"
 	password := "hoge"
-	hostname := "localhost"
+	hostname := "localhost:3306"
 	name := "chatdb"
 
 	db, err := gorm.Open("mysql", user+":"+password+"@tcp("+hostname+")/"+name)
@@ -23,9 +28,22 @@ func gormConnect() *gorm.DB {
 	return db
 } //DBに接続
 
-func GetDatabase(data string) error {
+func CreateUser(username string, password string, birthday string) {
 	db := gormConnect()
 	defer db.Close()
 
-	return nil
+	pass, _ := crypto.PasswordEncrypt(password)
 }
+
+// func GetDatabase() error {
+// 	db := gormConnect()
+// 	defer db.Close()
+
+// 	// loc := []Loc{}
+
+// 	// if err := db.Table("azureapi").Find(&loc, "location=?", "japaneast").Error; err != nil {
+// 	// 	return err
+// 	// }
+// 	// fmt.Println(loc)
+// 	return nil
+// }
