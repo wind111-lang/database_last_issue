@@ -49,6 +49,17 @@ func CreateUser(username string, password string, birthday string) error {
 	return nil
 }
 
+func Getuser(username string) structs.User {
+	db := gormConnect()
+	defer db.Close()
+
+	var userinfo structs.User
+
+	db.Table("members").First(&userinfo, "username = ?", username)
+
+	return userinfo
+}
+
 // func GetDatabase() error {
 // 	db := gormConnect()
 // 	defer db.Close()
