@@ -2,11 +2,12 @@ package db
 
 import (
 	"fmt"
-	"log"
+
+	"chat/structs"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"golang.org/x/crypto"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // type Loc struct {
@@ -22,17 +23,30 @@ func gormConnect() *gorm.DB {
 
 	db, err := gorm.Open("mysql", user+":"+password+"@tcp("+hostname+")/"+name)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	fmt.Println("Connected to DB")
+
 	return db
 } //DBに接続
 
-func CreateUser(username string, password string, birthday string) {
+func CreateUser(username string, password string, birthday string) error {
 	db := gormConnect()
 	defer db.Close()
 
-	pass, _ := crypto.PasswordEncrypt(password)
+	pass, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+
+	var userinfo structs.User
+
+	userinfo.Username = username
+	userinfo.Password = string(pass)
+	userinfo.Birthday = birthday
+
+	if err := db.Table("members").Create(&userinfo).Error; err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // func GetDatabase() error {
