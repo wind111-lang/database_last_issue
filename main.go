@@ -10,23 +10,33 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
+
+var Login structs.Session
 
 func SessionCheck() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		session := sessions.Default(ctx)
-		user := session.Get("username")
-		if user == nil {
+		Login.UID = session.Get("username")
+		if Login.UID == nil {
 			log.Println("user is nil!!")
 
 			ctx.Redirect(302, "/login")
 			ctx.Abort()
 		} else {
-			ctx.Set("username", user)
+			ctx.Set("username", Login.UID)
 			ctx.Next()
 		}
-		log.Println("user is ", user)
+		log.Println("user is ", Login.UID)
 	}
+}
+
+func Logout(ctx *gin.Context) {
+	session := sessions.Default(ctx)
+	session.Clear()
+	session.Save()
+	ctx.Redirect(302, "/login")
 }
 
 func main() {
@@ -40,7 +50,23 @@ func main() {
 	})
 
 	router.POST("/login", func(ctx *gin.Context) {
-		//wip
+		dbPassword := db.Getuser(ctx.PostForm("username")).Password
+		log.Println("dbPassword is ", dbPassword)
+
+		formPassword := ctx.PostForm("password")
+
+		if err := bcrypt.CompareHashAndPassword([]byte(dbPassword), []byte(formPassword)); err != nil {
+			log.Println("password is wrong!!")
+			ctx.HTML(400, "login.html", gin.H{"err": err})
+			ctx.Abort()
+		} else {
+			log.Println("password is correct!!")
+			session := sessions.Default(ctx)
+			session.Set("username", ctx.PostForm("username"))
+			session.Save()
+
+			ctx.Redirect(302, "/")
+		}
 	})
 
 	router.GET("/signup", func(ctx *gin.Context) {
