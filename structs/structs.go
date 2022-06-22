@@ -21,6 +21,10 @@ type User struct {
 	Birthday string `form:"birthday" binding:"required"`
 }
 
+type Session struct {
+	UID interface{} //`gorm:"primary_key"`
+}
+
 type JsonMessage struct {
 	Name    string `json:"name"`
 	Message string `json:"message"`
