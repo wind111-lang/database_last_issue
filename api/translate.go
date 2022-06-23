@@ -2,6 +2,7 @@ package api
 
 import (
 	"bytes"
+	"chat/db"
 	"chat/structs"
 	"encoding/json"
 	"fmt"
@@ -9,24 +10,19 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
-
-	"github.com/joho/godotenv"
+	//"os"
+	//"github.com/joho/godotenv"
 )
 
 func Translate(msg []byte) []byte {
-	err := godotenv.Load(fmt.Sprintf("%s.env", os.Getenv("key")))
-	if err != nil {
-		fmt.Println("Error loading environment")
-		log.Fatal(err)
-	}
-	//envファイル読み込み処理
+	apikey := db.GetKey()
 
-	Key := os.Getenv("subscriptionKey")
-	location := os.Getenv("location")
-	endpoint := os.Getenv("endpoint")
-	uri := endpoint + os.Getenv("uri")
-	//envファイルで読み込んだものを代入
+	Key := apikey.Key
+	location := apikey.Location
+	endpoint := apikey.Endpoint
+	uri := endpoint + apikey.URI
+
+	fmt.Println("OK")
 
 	//IMPORTANT PLEASE READ Check your subscriptionKey and location.
 
