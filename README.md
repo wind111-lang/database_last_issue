@@ -17,6 +17,22 @@ Linuxの場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql`�
 と入力した際に各々のカラムに値が入っていれば準備完了．  
 
 ## Goのインストール
+- Macの場合  
+`brew install go`でインストールを行う．    
+インストール完了後，`.zshrc`に，  
+```
+export GOPATH=$(go env GOPATH)
+export PATH=$PATH:$GOPATH:bin
+```
+と入力してPATHを通す．  
+
+- Linuxの場合
+`sudo wget https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz`と入力してGoをダウンロードする．  
+`sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz`と入力してtarを展開する．  
+`.bash_profile`に，  
+`export PATH=$PATH:/usr/local/go/bin`  
+と入力してPATHを通し，
+`source .bash_profile`と入力してプロファイルの再読み込みを行う．　　
 
 
 ## 実行準備
