@@ -60,6 +60,17 @@ func Getuser(username string) structs.User {
 	return userinfo
 }
 
+func GetKey() structs.APIKey {
+	db := gormConnect()
+	defer db.Close()
+
+	var keyinfo structs.APIKey
+
+	db.Table("apikeys").First(&keyinfo)
+
+	return keyinfo
+}
+
 // func GetDatabase() error {
 // 	db := gormConnect()
 // 	defer db.Close()
