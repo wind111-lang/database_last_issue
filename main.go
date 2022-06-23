@@ -6,6 +6,7 @@ import (
 
 	"chat/db"
 	"chat/structs"
+	"chat/websock"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -92,6 +93,14 @@ func main() {
 			ctx.Redirect(302, "/")
 		}
 	})
+
+	hub := websock.NewHub()
+
+	router.GET("/ws", func(ctx *gin.Context) {
+		websock.ServeWs(hub, ctx.Writer, ctx.Request)
+	})
+
+	go hub.Run()
 
 	page := router.Group("/")
 	page.Use(SessionCheck())
