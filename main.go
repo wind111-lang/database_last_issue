@@ -94,14 +94,6 @@ func main() {
 		}
 	})
 
-	hub := websock.NewHub()
-
-	router.GET("/ws", func(ctx *gin.Context) {
-		websock.ServeWs(hub, ctx.Writer, ctx.Request)
-	})
-
-	go hub.Run()
-
 	page := router.Group("/")
 	page.Use(SessionCheck())
 	{
@@ -109,6 +101,14 @@ func main() {
 			ctx.HTML(200, "index.html", gin.H{})
 		})
 	}
+
+	hub := websock.NewHub()
+
+	router.GET("/ws", func(ctx *gin.Context) {
+		websock.ServeWs(hub, ctx.Writer, ctx.Request)
+	})
+
+	go hub.Run()
 
 	//db.GetDatabase()
 
