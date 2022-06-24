@@ -8,7 +8,7 @@ create table if not exists members(
 id bigint not null auto_increment,
 username varchar(128),
 password varchar(128),
-birthday char(8),
+birthday char(10),
 primary key(id)
 );
 
@@ -26,4 +26,4 @@ endpoint varchar(128),
 uri varchar(32)
 );
 
-insert into azureapi (subkey,location,endpoint,uri) values('<your-subscription-key>','japaneast','https://api.cognitive.microsofttranslator.com/','/translate?api-version=3.0')
+insert into azureapi (subkey,location,endpoint,uri) values('<your-azure-subscription-key>','japaneast','https://api.cognitive.microsofttranslator.com/','/translate?api-version=3.0')
