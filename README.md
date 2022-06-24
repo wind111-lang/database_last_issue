@@ -2,6 +2,27 @@
 
 ##### ※ Linux,Macを使用している前提  
 
+## テーブルの概要
+
+### membersテーブル
+- id bigint not null auto_increment
+- username varchar(128)
+- password varchar(128)
+- birthday char(10)
+
+
+### chat_logテーブル
+- id bigint not null auto_increment
+- username varchar(128)
+- text text
+
+
+### azureapiテーブル
+- subkey varchar(128)
+- location varchar(16)
+- endpoint varchar(128)
+- uri varchar(32)
+
 ## データベース,テーブル,ユーザの作成,作成されたユーザへの権限付与
 
 db ディレクトリに`chatdb.sql`が入っているので，MySQL に root でログインした状態で，  
