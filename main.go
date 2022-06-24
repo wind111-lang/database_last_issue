@@ -42,6 +42,7 @@ func Logout(ctx *gin.Context) {
 
 func main() {
 	router := gin.Default()
+	router.LoadHTMLGlob("page/*.html")
 
 	session := cookie.NewStore([]byte("secret"))
 	router.Use(sessions.Sessions("chat-session", session))
@@ -84,14 +85,18 @@ func main() {
 			password := ctx.PostForm("password") //passwordを取得
 			birthday := ctx.PostForm("birthday") //birthdayを取得
 
+			log.Println(username, password, birthday)
 			//fmt.Println(username, password, birthday)
 
 			if db.CreateUser(username, password, birthday); err != nil {
 				ctx.HTML(400, "signup.html", gin.H{"err": err})
 			}
 
-			ctx.Redirect(302, "/")
+			ctx.Redirect(302, "/redirect")
 		}
+	})
+	router.GET("/redirect", func(ctx *gin.Context) {
+		ctx.HTML(200, "redirect.html", gin.H{})
 	})
 
 	page := router.Group("/")
