@@ -63,6 +63,7 @@ func (cli *Client) ReadPump() {
 		}
 
 		var mess structs.JsonMessage
+		//var usr structs.Session
 
 		if err := json.Unmarshal(message, &mess); err != nil {
 			log.Fatal(err)
@@ -77,11 +78,9 @@ func (cli *Client) ReadPump() {
 
 		var nam structs.JsonReturn
 
-		nam.Name = mess.Name
+		nam.Name = GetUID()
 		nam.Text = string(message)
-		//fmt.Println(string(message))
-
-		//dbctl.InsertNewTask(nam)
+		fmt.Println(nam.Name, nam.Text)
 
 		cli.hub.broadcast <- nam
 	}
