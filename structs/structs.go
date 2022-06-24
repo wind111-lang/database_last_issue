@@ -21,19 +21,15 @@ type User struct {
 	Birthday string `form:"birthday" binding:"required"`
 }
 
-type APIKey struct {
-	Key      string `json:"key"`
-	Location string `json:"location"`
-	Endpoint string `json:"endpoint"`
-	URI      string `json:"uri"`
+type LoggedInUser struct {
+	Username string `json:"username"`
 }
 
 type Session struct {
-	UID interface{} //`gorm:"primary_key"`
+	UID interface{}
 }
 
 type JsonMessage struct {
-	Name    string `json:"name"`
 	Message string `json:"message"`
 }
 
