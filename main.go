@@ -14,30 +14,11 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var Login structs.Session
-
-func SessionCheck() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		session := sessions.Default(ctx)
-		Login.UID = session.Get("username")
-		if Login.UID == nil {
-			log.Println("user is nil!!")
-
-			ctx.Redirect(302, "/login")
-			ctx.Abort()
-		} else {
-			ctx.Set("username", Login.UID)
-			ctx.Next()
-		}
-		log.Println("user is ", Login.UID)
-	}
-}
-
 func Logout(ctx *gin.Context) {
 	session := sessions.Default(ctx)
 	session.Clear()
 	session.Save()
-	ctx.Redirect(302, "/login")
+	ctx.Redirect(302, "/redirect")
 }
 
 func main() {
@@ -46,6 +27,10 @@ func main() {
 
 	session := cookie.NewStore([]byte("secret"))
 	router.Use(sessions.Sessions("chat-session", session))
+
+	router.GET("/logout", func(ctx *gin.Context) {
+		Logout(ctx)
+	})
 
 	router.GET("/login", func(ctx *gin.Context) {
 		ctx.HTML(200, "login.html", gin.H{})
@@ -66,6 +51,9 @@ func main() {
 			session := sessions.Default(ctx)
 			session.Set("username", ctx.PostForm("username"))
 			session.Save()
+
+			//var usr structs.LoggedInUser
+			//usr.Username = ctx.PostForm("username")
 
 			ctx.Redirect(302, "/")
 		}
@@ -95,12 +83,13 @@ func main() {
 			ctx.Redirect(302, "/redirect")
 		}
 	})
+
 	router.GET("/redirect", func(ctx *gin.Context) {
 		ctx.HTML(200, "redirect.html", gin.H{})
 	})
 
 	page := router.Group("/")
-	page.Use(SessionCheck())
+	page.Use(websock.SessionCheck())
 	{
 		page.GET("/", func(ctx *gin.Context) {
 			ctx.HTML(200, "index.html", gin.H{})
