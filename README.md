@@ -23,6 +23,7 @@
 - endpoint varchar(128)
 - uri varchar(32)
 
+
 ## データベース,テーブル,ユーザの作成,作成されたユーザへの権限付与
 
 db ディレクトリに`chatdb.sql`が入っているので，MySQL に root でログインした状態で，  
@@ -45,7 +46,9 @@ Linuxの場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql`�
 export GOPATH=$(go env GOPATH)
 export PATH=$PATH:$GOPATH:bin
 ```
-と入力してPATHを通す．  
+と入力してPATHを通し，  
+`zsh -l`と入力してプロファイルの再読み込みを行う．  
+(macOS Monterey 12.5 Beta5で動作確認済み)    
 
 - Linuxの場合
 `sudo wget https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz`と入力してGoをダウンロードする．  
@@ -54,6 +57,7 @@ export PATH=$PATH:$GOPATH:bin
 `export PATH=$PATH:/usr/local/go/bin`  
 と入力してPATHを通し，
 `source .bash_profile`と入力してプロファイルの再読み込みを行う．　　
+（AlmaLinux8で動作確認済み)  
 
 
 ## 実行準備
