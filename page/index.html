@@ -8,6 +8,8 @@ window.onload = function () {
     var msg = document.getElementById("msg");
     var log = document.getElementById("log");
 
+    //console.log(gotcookie.indexOf("user="));
+
    // var body ='{userName:"Sarah", password: "' + FakePass + '"}';
 
 
@@ -20,7 +22,7 @@ window.onload = function () {
     }
 
     document.getElementById("form").onsubmit = function () {
-        var obj = '{"message": "'+ msg.value +'"}'
+        var obj = '{"user": "'+userName+'","message": "'+ msg.value +'"}'
         var json = JSON.stringify(obj)
         var json_obj = JSON.parse(json)
 
@@ -38,18 +40,44 @@ window.onload = function () {
 
     if (window["WebSocket"]) {
         conn = new WebSocket("ws://" + document.location.host + "/ws");
+        var gotcookie = document.cookie;
+        var cokkieItem = gotcookie.split(";");
+        for (i=0; i<cokkieItem.length; i++) {
+            if (cokkieItem[i].indexOf("user=") != -1) {
+                var userName = cokkieItem[i].split("=")[1];
+                break;
+            }
+        }
+
+        var user = document.getElementById("user");
+
+        user.innerHTML = userName +' でログインしています';
+
+        console.log(gotcookie);
         conn.onclose = function (evt) {
             var item = document.createElement("div");
             item.innerHTML = "<b>Connection closed.</b>";
             appendLog(item);
         };
         conn.onmessage = function (evt) {
-            var messages = evt.data.split('\n');
-            for (var i = 0; i < messages.length; i++) {
-                var item = document.createElement("div");
-                item.innerText = messages[i];
-                appendLog(item);
-            }
+            var res = evt.data;
+            var data = JSON.parse(res);
+
+            var name_data = data.name;
+            var text_data = data.text;
+
+            var fullmsg = name_data + ": " + text_data;
+            var item = document.createElement("div");
+
+            item.innerText = fullmsg;
+            appendLog(item);
+            // var messages = evt.data.split('\n');
+            //for (var i = 0; i < messages.length; i++) {
+            //   var item = document.createElement("div");
+            //    item.innerText = messages[i];
+            //    //console.log(messages[i])
+            //    appendLog(item);
+            //}
         };
     } else {
         var item = document.createElement("div");
@@ -75,12 +103,12 @@ body {
 #log {
     background: white;
     margin: 0;
-    padding: 0.5em 0.5em 0.5em 0.5em;
+    padding: 0.4em 0.4em 0.4em 0.4em;
     position: absolute;
-    top: 0.5em;
-    left: 0.5em;
-    right: 0.5em;
-    bottom: 3em;
+    top: 3em;
+    left: 1em;
+    right: 1em;
+    bottom: 5em;
     overflow: auto;
 }
 
@@ -88,10 +116,14 @@ body {
     padding: 0 0.5em 0 0.5em;
     margin: 0;
     position: absolute;
-    bottom: 1em;
+    bottom: 2em;
     left: 0px;
     width: 100%;
     overflow: hidden;
+}
+
+#user {
+    color: #fff;
 }
 
 </style>
@@ -99,8 +131,12 @@ body {
     <body>
         <div id="log"></div>
         <form id="form">
-            <input type="submit" value="Send" />
             <input type="text" id="msg" size="64" autofocus />
+            <input type="submit" value="Send" />
         </form>
+
+        <div id="user">
+        </div>
+        <a href="logout">ログアウト</a>
     </body>
 </html>

@@ -39,6 +39,8 @@ func main() {
 	})
 
 	router.POST("/login", func(ctx *gin.Context) {
+		//ctx.SetSameSite(http.SameSiteNoneMode)
+
 		dbPassword := db.Getuser(ctx.PostForm("username")).Password
 		log.Println("dbPassword is ", dbPassword)
 
@@ -57,7 +59,7 @@ func main() {
 
 			//key := ctx.MustGet(gin.AuthUserKey).(string)
 			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", "localhost", false, false)
-			ctx.Next()
+			//ctx.Next()
 			//var usr structs.LoggedInUser
 			//usr.Username = ctx.PostForm("username")
 
@@ -85,6 +87,8 @@ func main() {
 			if db.CreateUser(username, password, birthday); err != nil {
 				ctx.HTML(400, "signup.html", gin.H{"err": err})
 			}
+
+			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", "localhost", false, false)
 
 			ctx.Redirect(302, "/redirect")
 		}
