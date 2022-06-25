@@ -36,14 +36,14 @@ Linux の場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql;
   `brew install go`でインストールを行う．  
   インストール完了後，`.zshrc`に，
 
-```
-export GOPATH=$(go env GOPATH)
-export PATH=$PATH:$GOPATH:bin
-```
+  ```
+  export GOPATH=$(go env GOPATH)
+  export PATH=$PATH:$GOPATH:bin
+  ```
 
-と入力して PATH を通し，  
-`zsh -l`と入力してプロファイルの再読み込みを行う．  
-(macOS Monterey 12.5 Beta5 で動作確認済み)
+  と入力して PATH を通し，  
+  `zsh -l`と入力してプロファイルの再読み込みを行う．  
+  (macOS Monterey 12.5 Beta5 で動作確認済み)
 
 - Linux の場合
   `sudo wget https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz`と入力して Go をダウンロードする．  
