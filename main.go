@@ -16,6 +16,8 @@ import (
 
 func Logout(ctx *gin.Context) {
 	session := sessions.Default(ctx)
+	ctx.SetCookie("user", "", -1, "/", "localhost", false, false)
+
 	session.Clear()
 	session.Save()
 	ctx.Redirect(302, "/redirect")
@@ -49,9 +51,13 @@ func main() {
 		} else {
 			log.Println("password is correct!!")
 			session := sessions.Default(ctx)
+
 			session.Set("username", ctx.PostForm("username"))
 			session.Save()
 
+			//key := ctx.MustGet(gin.AuthUserKey).(string)
+			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", "localhost", false, false)
+			ctx.Next()
 			//var usr structs.LoggedInUser
 			//usr.Username = ctx.PostForm("username")
 
@@ -93,6 +99,15 @@ func main() {
 	{
 		page.GET("/", func(ctx *gin.Context) {
 			ctx.HTML(200, "index.html", gin.H{})
+			usr, err := ctx.Cookie("user")
+			if err != nil {
+				log.Println("cookie is nil!!")
+				ctx.Redirect(302, "/login")
+
+				ctx.Abort()
+			} else {
+				log.Println("cookie is ", usr)
+			}
 		})
 	}
 
