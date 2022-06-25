@@ -2,6 +2,7 @@ package websock
 
 import (
 	"chat/structs"
+	//"fmt"
 
 	"github.com/gin-contrib/sessions"
 
@@ -40,8 +41,3 @@ func SessionCheck() gin.HandlerFunc {
 
 // 	return Login.UID.(string)
 // }
-
-func GetUID() string {
-	SessionCheck()
-	return Login.UID.(string)
-}

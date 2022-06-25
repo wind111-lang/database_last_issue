@@ -63,6 +63,9 @@ func (cli *Client) ReadPump() {
 		}
 
 		var mess structs.JsonMessage
+
+		var nam structs.JsonReturn
+
 		//var usr structs.Session
 
 		if err := json.Unmarshal(message, &mess); err != nil {
@@ -76,9 +79,7 @@ func (cli *Client) ReadPump() {
 
 		message = bytes.TrimSpace(bytes.Replace(translate, line, spc, -1))
 
-		var nam structs.JsonReturn
-
-		nam.Name = GetUID()
+		nam.Name = mess.User
 		nam.Text = string(message)
 		fmt.Println(nam.Name, nam.Text)
 
