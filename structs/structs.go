@@ -30,6 +30,7 @@ type Session struct {
 }
 
 type JsonMessage struct {
+	User    string `json:"user"`
 	Message string `json:"message"`
 }
 
