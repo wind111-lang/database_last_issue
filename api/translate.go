@@ -2,7 +2,6 @@ package api
 
 import (
 	"bytes"
-	"chat/db"
 	"chat/structs"
 	"encoding/json"
 	"fmt"
@@ -10,19 +9,28 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	//"os"
-	//"github.com/joho/godotenv"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func Translate(msg []byte) []byte {
-	apikey := db.GetKey()
+	err := godotenv.Load(fmt.Sprintf("%s.env", os.Getenv("key")))
+	if err != nil {
+		fmt.Println("Error loading environment")
+		log.Fatal(err)
+	}
+	//envファイル読み込み処理
 
-	Key := apikey.Key
-	location := apikey.Location
-	endpoint := apikey.Endpoint
-	uri := endpoint + apikey.URI
+	Key := os.Getenv("subscriptionKey")
+	location := os.Getenv("location")
+	endpoint := os.Getenv("endpoint")
+	uri := endpoint + os.Getenv("uri")
+	//envファイルで読み込んだものを代入
 
-	fmt.Println("OK")
+	fmt.Println("Key:", Key, location, endpoint, uri)
+
+	//fmt.Println("OK")
 
 	//IMPORTANT PLEASE READ Check your subscriptionKey and location.
 
@@ -54,6 +62,7 @@ func Translate(msg []byte) []byte {
 	if err != nil {
 		log.Fatal(err)
 	}
+	//fmt.Println("Connected")
 	// Add required headers to the request
 	req.Header.Add("Ocp-Apim-Subscription-Key", Key)
 	req.Header.Add("Ocp-Apim-Subscription-Region", location)
@@ -64,6 +73,8 @@ func Translate(msg []byte) []byte {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	//fmt.Println("ok")
 
 	var arr []structs.TranslationRes
 

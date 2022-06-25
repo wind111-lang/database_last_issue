@@ -18,12 +18,3 @@ username varchar(128),
 text text,
 primary key(id)
 );
-
-create table if not exists azureapi(
-subkey varchar(128),
-location varchar(16),
-endpoint varchar(128),
-uri varchar(32)
-);
-
-insert into azureapi (subkey,location,endpoint,uri) values('<your-azure-subscription-key>','japaneast','https://api.cognitive.microsofttranslator.com/','/translate?api-version=3.0')

@@ -30,7 +30,7 @@ func gormConnect() *gorm.DB {
 	return db
 } //DBに接続
 
-func CreateUser(username string, password string, birthday string) error {
+func CreateUser(username string, password string, birthday string) []error {
 	db := gormConnect()
 	defer db.Close()
 
@@ -42,7 +42,7 @@ func CreateUser(username string, password string, birthday string) error {
 	userinfo.Password = string(pass)
 	userinfo.Birthday = birthday
 
-	if err := db.Table("members").Create(&userinfo).Error; err != nil {
+	if err := db.Table("members").Create(&userinfo).GetErrors(); err != nil {
 		return err
 	}
 
@@ -58,17 +58,6 @@ func Getuser(username string) structs.User {
 	db.Table("members").First(&userinfo, "username = ?", username)
 
 	return userinfo
-}
-
-func GetKey() structs.APIKey {
-	db := gormConnect()
-	defer db.Close()
-
-	var keyinfo structs.APIKey
-
-	db.Table("apikeys").First(&keyinfo)
-
-	return keyinfo
 }
 
 // func GetDatabase() error {
