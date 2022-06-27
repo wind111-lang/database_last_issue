@@ -72,6 +72,20 @@ func InsertMessage(user string, message string) {
 	db.Table("chat_log").Create(&chatlog)
 }
 
+func UpdateUser(olduser string, newuser structs.User) {
+	db := gormConnect()
+	defer db.Close()
+
+	var userinfo structs.User
+
+	pass, _ := bcrypt.GenerateFromPassword([]byte(newuser.Password), bcrypt.DefaultCost)
+
+	userinfo.Username = newuser.Username
+	userinfo.Password = string(pass)
+
+	db.Table("members").Where("username = ?", olduser).Update(&userinfo)
+}
+
 func DeleteUser(user string) {
 	db := gormConnect()
 	defer db.Close()

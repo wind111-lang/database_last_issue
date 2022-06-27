@@ -131,6 +131,72 @@ func main() {
 		}
 	})
 
+	router.GET("/update", func(ctx *gin.Context) {
+		ctx.HTML(200, "update.html", gin.H{})
+
+		usr, err := ctx.Cookie("user")
+		if err != nil {
+			log.Println("cookie is nil!!")
+			ctx.Redirect(302, "/login")
+
+			ctx.Abort()
+		} else {
+			log.Println("cookie is ", usr)
+			if db.Getuser(usr); err != nil {
+				log.Println("user is nil!!")
+				ctx.Redirect(302, "/login")
+
+				ctx.Abort()
+			}
+		}
+	})
+
+	router.POST("/update", func(ctx *gin.Context) {
+		usr, err := ctx.Cookie("user")
+		if err != nil {
+			log.Println("cookie is nil!!")
+			ctx.Redirect(302, "/login")
+
+			ctx.Abort()
+		} else {
+			log.Println("cookie is ", usr)
+			if db.Getuser(usr); err != nil {
+				log.Println("user is nil!!")
+				ctx.Redirect(302, "/login")
+
+				ctx.Abort()
+			}
+		}
+
+		var form structs.User //User struct
+
+		if err := ctx.Bind(&form); err != nil {
+			ctx.HTML(400, "update.html", gin.H{"err": "フォームを全て入力してください"})
+			ctx.Abort()
+		} else {
+			var userinfo structs.User
+
+			username := ctx.PostForm("username") //usernameを取得
+			password := ctx.PostForm("password") //passwordを取得
+
+			userinfo.Username = username
+			userinfo.Password = password
+
+			//log.Println(username, password, birthday)
+			//fmt.Println(username, password, birthday)
+
+			if db.UpdateUser(usr, userinfo); err != nil {
+				ctx.HTML(400, "update.html", gin.H{"err": err})
+			}
+
+			//ip = websock.GetIP()
+
+			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
+
+			ctx.HTML(302, "userinfo.html", gin.H{"err": "更新しました"})
+		}
+	})
+
 	router.GET("/delete", func(ctx *gin.Context) {
 		ctx.HTML(200, "delete.html", gin.H{})
 

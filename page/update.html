@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>会員情報変更</title>
+</head>
+<script src="./source/userinfo.js"></script>
+
+<body>
+    <div id="user"></div>
+    <p>の会員情報を変更</p>
+    <div class="input">
+        <p>{{.err}}</p>
+        <form action="/update" method="post">
+            <p>新しいユーザー名(変更しない場合は現在のユーザー名を入力) : <input type="text" name="username" placeholder="" /></p>
+            <p>新しいパスワード(変更しない場合は現在のパスワードを入力) : <input type="password" name="password" placeholder="" /></p>
+            <p><input type="submit" value="変更" /></p>
+        </form>
+        <a href="userinfo">会員情報に戻る</a>
+    </div>
+</body>
+
+</html>
