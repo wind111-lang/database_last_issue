@@ -1,5 +1,11 @@
 # database_last_issue
 
+| 使用技術              | バージョン | 
+| --------------------- | ---------- | 
+| Go                    | 1.18.3     | 
+| Gin(Web Framework)    | 1.8.1      | 
+| Gorm(MySQL Framework) | 1.9.16     | 
+
 ##### ※ Linux,Mac を使用している前提
 
 ## テーブルの概要
@@ -43,7 +49,7 @@ Linux の場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql;
 
   と入力して PATH を通し，  
   `zsh -l`と入力してプロファイルの再読み込みを行う．  
-  (macOS Monterey 12.5 Beta5 で動作確認済み)
+  (macOS 13 Ventura Developer Beta2 で動作確認済み)
 
 - Linux の場合
   `sudo wget https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz`と入力して Go をダウンロードする．  
