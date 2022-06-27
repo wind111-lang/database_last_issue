@@ -107,6 +107,77 @@ func main() {
 		ctx.HTML(200, "redirect.html", gin.H{})
 	})
 
+	// router.GET("/userinfo", func(ctx *gin.Context) {
+	// 	ctx.HTML(200, "userinfo.html", gin.H{})
+
+	// })
+	router.GET("/userinfo", func(ctx *gin.Context) {
+		ctx.HTML(200, "userinfo.html", gin.H{})
+
+		usr, err := ctx.Cookie("user")
+		if err != nil {
+			log.Println("cookie is nil!!")
+			ctx.Redirect(302, "/login")
+
+			ctx.Abort()
+		} else {
+			log.Println("cookie is ", usr)
+			if db.Getuser(usr); err != nil {
+				log.Println("user is nil!!")
+				ctx.Redirect(302, "/login")
+
+				ctx.Abort()
+			} else {
+				ctx.SetCookie("user", usr, 3600, "/userinfo", ip, false, false)
+			}
+		}
+	})
+
+	router.GET("/delete", func(ctx *gin.Context) {
+		ctx.HTML(200, "delete.html", gin.H{})
+
+		usr, err := ctx.Cookie("user")
+		if err != nil {
+			log.Println("cookie is nil!!")
+			ctx.Redirect(302, "/login")
+
+			ctx.Abort()
+		} else {
+			log.Println("cookie is ", usr)
+			if db.Getuser(usr); err != nil {
+				log.Println("user is nil!!")
+				ctx.Redirect(302, "/login")
+
+				ctx.Abort()
+			} else {
+				ctx.SetCookie("user", usr, 3600, "/delete", ip, false, false)
+			}
+		}
+	})
+
+	router.POST("/delete", func(ctx *gin.Context) {
+		//fmt.Println("delete")
+		usr, err := ctx.Cookie("user")
+		if err != nil {
+			log.Println("cookie is nil!!")
+			ctx.Redirect(302, "/login")
+
+			ctx.Abort()
+		} else {
+			log.Println("cookie is ", usr)
+			if db.Getuser(usr); err != nil {
+				log.Println("user is nil!!")
+				ctx.Redirect(302, "/login")
+
+				ctx.Abort()
+			} else {
+				ctx.SetCookie("user", usr, 3600, "/delete", ip, false, false)
+				db.DeleteUser(usr)
+			}
+		}
+		ctx.Redirect(302, "/logout")
+	})
+
 	page := router.Group("/")
 	page.Use(websock.SessionCheck())
 	{

@@ -8,22 +8,22 @@ type TranslationRes struct {
 	Translation []Translate `json:"translations"`
 }
 
-// type ChatLog struct {
-// 	Name string `gorm:"name"`
-// 	Text string `gorm:"text"`
-// 	Time string `gorm:"time"`
-// }
+type ChatLog struct {
+	Username string `gorm:"username"`
+	Text     string `gorm:"text"`
+}
 
 type User struct {
 	//gorm.Model
+	Id       int    `gorm:"primary_key"`
 	Username string `form:"username" binding:"required" gorm:"unique;not null"`
 	Password string `form:"password" binding:"required"`
 	Birthday string `form:"birthday" binding:"required"`
 }
 
-type LoggedInUser struct {
-	Username string `json:"username"`
-}
+// type LoggedInUser struct {
+// 	Username string `json:"username"`
+// }
 
 type Session struct {
 	UID interface{}

@@ -3,6 +3,7 @@ package websock
 import (
 	"bytes"
 	"chat/api"
+	"chat/db"
 	"chat/structs"
 	"encoding/json"
 	"fmt"
@@ -82,6 +83,8 @@ func (cli *Client) ReadPump() {
 		nam.Name = mess.User
 		nam.Text = string(message)
 		fmt.Println(nam.Name, nam.Text)
+
+		db.InsertMessage(nam.Name, nam.Text)
 
 		cli.hub.broadcast <- nam
 	}
