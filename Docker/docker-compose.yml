@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:latest
+    container_name: database-lastissue-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root-pw
+      MYSQL_DATABASE: chatdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: hoge
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
