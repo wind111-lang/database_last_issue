@@ -127,8 +127,6 @@ func main() {
 				ctx.Redirect(302, "/login")
 
 				ctx.Abort()
-			} else {
-				ctx.SetCookie("user", usr, 3600, "/userinfo", ip, false, false)
 			}
 		}
 	})
@@ -149,8 +147,6 @@ func main() {
 				ctx.Redirect(302, "/login")
 
 				ctx.Abort()
-			} else {
-				ctx.SetCookie("user", usr, 3600, "/delete", ip, false, false)
 			}
 		}
 	})
@@ -171,7 +167,7 @@ func main() {
 
 				ctx.Abort()
 			} else {
-				ctx.SetCookie("user", usr, 3600, "/delete", ip, false, false)
+				//ctx.SetCookie("user", usr, 3600, "/delete", ip, false, false)
 				db.DeleteUser(usr)
 			}
 		}

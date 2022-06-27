@@ -28,7 +28,7 @@ func Translate(msg []byte) []byte {
 	uri := endpoint + os.Getenv("uri")
 	//envファイルで読み込んだものを代入
 
-	fmt.Println("Key:", Key, location, endpoint, uri)
+	//fmt.Println("Key:", Key, location, endpoint, uri)
 
 	//fmt.Println("OK")
 

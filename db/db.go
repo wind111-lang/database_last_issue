@@ -60,15 +60,24 @@ func Getuser(username string) structs.User {
 	return userinfo
 }
 
-// func GetDatabase() error {
-// 	db := gormConnect()
-// 	defer db.Close()
+func InsertMessage(user string, message string) {
+	db := gormConnect()
+	defer db.Close()
 
-// 	// loc := []Loc{}
+	var chatlog structs.ChatLog
 
-// 	// if err := db.Table("azureapi").Find(&loc, "location=?", "japaneast").Error; err != nil {
-// 	// 	return err
-// 	// }
-// 	// fmt.Println(loc)
-// 	return nil
-// }
+	chatlog.Username = user
+	chatlog.Text = message
+
+	db.Table("chat_log").Create(&chatlog)
+}
+
+func DeleteUser(user string) {
+	db := gormConnect()
+	defer db.Close()
+
+	var userinfo structs.User
+	fmt.Println(user)
+
+	db.Table("members").Where("username = ?", user).Delete(&userinfo)
+}
