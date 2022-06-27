@@ -1,142 +1,144 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <title>チャットページ</title>
-        <script type="text/javascript">
-window.onload = function () {
-    var conn;
-    var msg = document.getElementById("msg");
-    var log = document.getElementById("log");
 
-    //console.log(gotcookie.indexOf("user="));
+<head>
+    <title>チャットページ</title>
+    <script type="text/javascript">
+        window.onload = function() {
+            var conn;
+            var msg = document.getElementById("msg");
+            var log = document.getElementById("log");
 
-   // var body ='{userName:"Sarah", password: "' + FakePass + '"}';
+            //console.log(gotcookie.indexOf("user="));
+
+            // var body ='{userName:"Sarah", password: "' + FakePass + '"}';
 
 
-    function appendLog(item) {
-        var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
-        log.appendChild(item);
-        if (doScroll) {
-            log.scrollTop = log.scrollHeight - log.clientHeight;
-        }
-    }
-
-    document.getElementById("form").onsubmit = function () {
-        var obj = '{"user": "'+userName+'","message": "'+ msg.value +'"}'
-        var json = JSON.stringify(obj)
-        var json_obj = JSON.parse(json)
-
-        if (!conn) {
-            return false;
-        }
-        if (!json_obj) {
-            return false;
-        }
-        conn.send(json_obj);
-        console.log(json);
-        msg.value = "";
-        return false;
-    };
-
-    if (window["WebSocket"]) {
-        conn = new WebSocket("ws://" + document.location.host + "/ws");
-        var gotcookie = document.cookie;
-        var cokkieItem = gotcookie.split(";");
-        for (i=0; i<cokkieItem.length; i++) {
-            if (cokkieItem[i].indexOf("user=") != -1) {
-                var userName = cokkieItem[i].split("=")[1];
-                break;
+            function appendLog(item) {
+                var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
+                log.appendChild(item);
+                if (doScroll) {
+                    log.scrollTop = log.scrollHeight - log.clientHeight;
+                }
             }
+
+            document.getElementById("form").onsubmit = function() {
+                var obj = '{"user": "' + userName + '","message": "' + msg.value + '"}'
+                var json = JSON.stringify(obj)
+                var json_obj = JSON.parse(json)
+
+                if (!conn) {
+                    return false;
+                }
+                if (!json_obj) {
+                    return false;
+                }
+                conn.send(json_obj);
+                console.log(json);
+                msg.value = "";
+                return false;
+            };
+
+            if (window["WebSocket"]) {
+                conn = new WebSocket("ws://" + document.location.host + "/ws");
+                var gotcookie = document.cookie;
+                var cokkieItem = gotcookie.split(";");
+                for (i = 0; i < cokkieItem.length; i++) {
+                    if (cokkieItem[i].indexOf("user=") != -1) {
+                        var userName = cokkieItem[i].split("=")[1];
+                        break;
+                    }
+                }
+
+                var user = document.getElementById("user");
+
+                user.innerHTML = userName + ' でログインしています';
+
+                console.log(gotcookie);
+                conn.onclose = function(evt) {
+                    var item = document.createElement("div");
+                    item.innerHTML = "<b>Connection closed.</b>";
+                    appendLog(item);
+                };
+                conn.onmessage = function(evt) {
+                    var res = evt.data;
+                    var data = JSON.parse(res);
+
+                    var name_data = data.name;
+                    var text_data = data.text;
+
+                    var fullmsg = name_data + ": " + text_data;
+                    var item = document.createElement("div");
+
+                    item.innerText = fullmsg;
+                    appendLog(item);
+                    // var messages = evt.data.split('\n');
+                    //for (var i = 0; i < messages.length; i++) {
+                    //   var item = document.createElement("div");
+                    //    item.innerText = messages[i];
+                    //    //console.log(messages[i])
+                    //    appendLog(item);
+                    //}
+                };
+            } else {
+                var item = document.createElement("div");
+                item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
+                appendLog(item);
+            }
+        };
+    </script>
+    <style type="text/css">
+        html {
+            overflow: hidden;
         }
+        
+        body {
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background: gray;
+        }
+        
+        #log {
+            background: white;
+            margin: 0;
+            padding: 0.4em 0.4em 0.4em 0.4em;
+            position: absolute;
+            top: 3em;
+            left: 1em;
+            right: 1em;
+            bottom: 5em;
+            overflow: auto;
+        }
+        
+        #form {
+            padding: 0 0.5em 0 0.5em;
+            margin: 0;
+            position: absolute;
+            bottom: 2em;
+            left: 0px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        #user {
+            color: #fff;
+        }
+    </style>
+</head>
 
-        var user = document.getElementById("user");
+<body>
+    <div id="log"></div>
+    <form id="form">
+        <input type="text" id="msg" size="64" autofocus />
+        <input type="submit" value="送信" />
+    </form>
 
-        user.innerHTML = userName +' でログインしています';
+    <div id="user">
+    </div>
+    <a href="logout">ログアウト</a>
+</body>
 
-        console.log(gotcookie);
-        conn.onclose = function (evt) {
-            var item = document.createElement("div");
-            item.innerHTML = "<b>Connection closed.</b>";
-            appendLog(item);
-        };
-        conn.onmessage = function (evt) {
-            var res = evt.data;
-            var data = JSON.parse(res);
-
-            var name_data = data.name;
-            var text_data = data.text;
-
-            var fullmsg = name_data + ": " + text_data;
-            var item = document.createElement("div");
-
-            item.innerText = fullmsg;
-            appendLog(item);
-            // var messages = evt.data.split('\n');
-            //for (var i = 0; i < messages.length; i++) {
-            //   var item = document.createElement("div");
-            //    item.innerText = messages[i];
-            //    //console.log(messages[i])
-            //    appendLog(item);
-            //}
-        };
-    } else {
-        var item = document.createElement("div");
-        item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
-        appendLog(item);
-    }
-};
-</script>
-        <style type="text/css">
-html {
-    overflow: hidden;
-}
-
-body {
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: gray;
-}
-
-#log {
-    background: white;
-    margin: 0;
-    padding: 0.4em 0.4em 0.4em 0.4em;
-    position: absolute;
-    top: 3em;
-    left: 1em;
-    right: 1em;
-    bottom: 5em;
-    overflow: auto;
-}
-
-#form {
-    padding: 0 0.5em 0 0.5em;
-    margin: 0;
-    position: absolute;
-    bottom: 2em;
-    left: 0px;
-    width: 100%;
-    overflow: hidden;
-}
-
-#user {
-    color: #fff;
-}
-
-</style>
-    </head>
-    <body>
-        <div id="log"></div>
-        <form id="form">
-            <input type="text" id="msg" size="64" autofocus />
-            <input type="submit" value="Send" />
-        </form>
-
-        <div id="user">
-        </div>
-        <a href="logout">ログアウト</a>
-    </body>
 </html>
