@@ -269,7 +269,7 @@ func main() {
 
 	ip = websock.GetIP()
 
-	fmt.Println("Server is running on port 8081")
+	fmt.Println("Server is running on", ip+":8081")
 	router.Run(ip + ":8081")
 
 }

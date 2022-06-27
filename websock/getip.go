@@ -1,7 +1,6 @@
 package websock
 
 import (
-	"fmt"
 	"net"
 )
 
@@ -15,7 +14,7 @@ func GetIP() string {
 
 		if ok && !netIP.IP.IsLoopback() && netIP.IP.To4() != nil {
 			ip = netIP.IP.String()
-			fmt.Println(ip)
+			//fmt.Println(ip)
 		}
 	}
 	return ip
