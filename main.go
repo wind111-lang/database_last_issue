@@ -29,6 +29,7 @@ func Logout(ctx *gin.Context) {
 func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("page/*.html")
+	router.Static("/source", "page/source/")
 
 	session := cookie.NewStore([]byte("secret"))
 	router.Use(sessions.Sessions("chat-session", session))
