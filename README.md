@@ -1,10 +1,10 @@
 # database_last_issue
 
-| 使用技術              | バージョン | 
-| --------------------- | ---------- | 
-| Go                    | 1.18.3     | 
-| Gin(Web Framework)    | 1.8.1      | 
-| Gorm(SQL Framework) | 1.9.16     | 
+| 使用技術            | バージョン |
+| ------------------- | ---------- |
+| Go                  | 1.18.3     |
+| Gin(Web Framework)  | 1.8.1      |
+| Gorm(SQL Framework) | 1.9.16     |
 
 ##### ※ Linux,Mac を使用している前提
 
@@ -67,4 +67,8 @@ Linux の場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql;
 
 ## 実行
 
-`go run main.go`と入力してローカルサーバを開く
+`go run main.go`と入力してサーバを開く  
+(`air`が導入されていれば`air -c .air.toml`でも可能)
+
+GIN-debug に，`Listening and serving HTTP on <your-ip-address>:8081`  
+というのが流れてきたら，`<your-ip-address>:8081/login`でページのアクセスが可能になる．
