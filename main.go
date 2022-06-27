@@ -14,9 +14,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+var ip string
+
 func Logout(ctx *gin.Context) {
 	session := sessions.Default(ctx)
-	ctx.SetCookie("user", "", -1, "/", "localhost", false, false)
+	//ip = websock.GetIP()
+	ctx.SetCookie("user", "", -1, "/", ip, false, false)
 
 	session.Clear()
 	session.Save()
@@ -36,19 +39,21 @@ func main() {
 
 	router.GET("/login", func(ctx *gin.Context) {
 		ctx.HTML(200, "login.html", gin.H{})
+		//ip = websock.GetIP()
+		//fmt.Println(reflect.TypeOf(ip))
 	})
 
 	router.POST("/login", func(ctx *gin.Context) {
 		//ctx.SetSameSite(http.SameSiteNoneMode)
 
 		dbPassword := db.Getuser(ctx.PostForm("username")).Password
-		log.Println("dbPassword is ", dbPassword)
+		log.Println("Password is ", dbPassword)
 
 		formPassword := ctx.PostForm("password")
 
 		if err := bcrypt.CompareHashAndPassword([]byte(dbPassword), []byte(formPassword)); err != nil {
 			log.Println("password is wrong!!")
-			ctx.HTML(400, "login.html", gin.H{"err": err})
+			ctx.HTML(400, "login.html", gin.H{"err": "ユーザ名かパスワードが間違っています"})
 			ctx.Abort()
 		} else {
 			log.Println("password is correct!!")
@@ -58,7 +63,8 @@ func main() {
 			session.Save()
 
 			//key := ctx.MustGet(gin.AuthUserKey).(string)
-			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", "localhost", false, false)
+			//ip = websock.GetIP()
+			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
 			//ctx.Next()
 			//var usr structs.LoggedInUser
 			//usr.Username = ctx.PostForm("username")
@@ -74,21 +80,23 @@ func main() {
 		var form structs.User //User struct
 
 		if err := ctx.Bind(&form); err != nil {
-			ctx.HTML(400, "signup.html", gin.H{"err": err})
+			ctx.HTML(400, "signup.html", gin.H{"err": "フォームを全て入力してください"})
 			ctx.Abort()
 		} else {
 			username := ctx.PostForm("username") //usernameを取得
 			password := ctx.PostForm("password") //passwordを取得
 			birthday := ctx.PostForm("birthday") //birthdayを取得
 
-			log.Println(username, password, birthday)
+			//log.Println(username, password, birthday)
 			//fmt.Println(username, password, birthday)
 
 			if db.CreateUser(username, password, birthday); err != nil {
 				ctx.HTML(400, "signup.html", gin.H{"err": err})
 			}
 
-			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", "localhost", false, false)
+			//ip = websock.GetIP()
+
+			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
 
 			ctx.Redirect(302, "/redirect")
 		}
@@ -125,7 +133,9 @@ func main() {
 
 	//db.GetDatabase()
 
+	ip = websock.GetIP()
+
 	fmt.Println("Server is running on port 8081")
-	router.Run(":8081")
+	router.Run(ip + ":8081")
 
 }
