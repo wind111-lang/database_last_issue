@@ -4,7 +4,7 @@
 | --------------------- | ---------- | 
 | Go                    | 1.18.3     | 
 | Gin(Web Framework)    | 1.8.1      | 
-| Gorm(MySQL Framework) | 1.9.16     | 
+| Gorm(SQL Framework) | 1.9.16     | 
 
 ##### ※ Linux,Mac を使用している前提
 
