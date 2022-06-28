@@ -144,7 +144,7 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	client := NewClient(hub, conn)
-	fmt.Println("New Client joined the hub.")
+	fmt.Println("Someone enter the hub.")
 
 	go client.WritePump()
 	go client.ReadPump()
