@@ -49,11 +49,11 @@
                 user.innerHTML = userName + ' でログインしています';
 
                 console.log(gotcookie);
-                conn.onclose = function(evt) {
-                    var item = document.createElement("div");
-                    item.innerHTML = "<b>Connection closed.</b>";
-                    appendLog(item);
-                };
+                // conn.onclose = function(evt) {
+                //     var item = document.createElement("div");
+                //     item.innerHTML = "<b>Connection closed.</b>";
+                //     appendLog(item);
+                // };
                 conn.onmessage = function(evt) {
                     var res = evt.data;
                     var data = JSON.parse(res);
