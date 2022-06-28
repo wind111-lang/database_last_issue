@@ -81,7 +81,7 @@ func main() {
 		var form structs.User //User struct
 
 		if err := ctx.Bind(&form); err != nil {
-			ctx.HTML(400, "signup.html", gin.H{"err": "フォームを全て入力してください"})
+			ctx.HTML(400, "signup.html", gin.H{"err": "フォームを全て入力してください!"})
 			ctx.Abort()
 		} else {
 			username := ctx.PostForm("username") //usernameを取得
@@ -168,10 +168,10 @@ func main() {
 			}
 		}
 
-		var form structs.User //User struct
+		var form structs.UpdateUser //User struct
 
 		if err := ctx.Bind(&form); err != nil {
-			ctx.HTML(400, "update.html", gin.H{"err": "フォームを全て入力してください"})
+			ctx.HTML(400, "update.html", gin.H{"err": "フォームを全て入力してください!"})
 			ctx.Abort()
 		} else {
 			var userinfo structs.User
