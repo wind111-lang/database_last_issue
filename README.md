@@ -63,7 +63,9 @@ Linux の場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql;
 ## 実行準備
 
 実行する前に，必要なモジュールを取得するために
-`go mod tidy`と入力してモジュールのインストールを行う
+`go mod tidy`と入力してモジュールのインストールを行う  
+
+参考記事: https://qiita.com/lamp7800/items/9a154e8e789261f87466
 
 ## 実行
 
