@@ -1,28 +1,68 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>
-    <title>チャットページ</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="./source/style.css">
-    <script src="./source/websocket.js"></script>
-</head>
+    <head>
+        <title>チャットページ</title>
+        <meta charset="utf-8">
+        <script src="./source/websocket.js"></script>
+    </head>
 
-<body>
-    <div id="log">
-    </div>
-    <form id="form">
-        <input type="text" id="msg" size="64" autofocus />
-        <input type="submit" value="送信" />
-    </form>
+    <style>
+     html {
+     overflow: hidden;
+ }
+ 
+ body {
+     overflow: hidden;
+     padding: 0;
+     margin: 0;
+     width: 100%;
+     height: 100%;
+     background: gray;
+ }
+ 
+ #log {
+     background: white;
+     margin: 0;
+     padding: 0.3em 0.3em 0.3em 0.3em;
+     position: absolute;
+     top: 5em;
+     left: 1em;
+     right: 1em;
+     bottom: 6em;
+     overflow: auto;
+ }
+ 
+ #form {
+     padding: 0 0.5em 0 0.5em;
+     margin: 0;
+     position: absolute;
+     bottom: 3em;
+     left: 0px;
+     width: 100%;
+     overflow: hidden;
+ }
+ 
+ #user {
+     color: #fff;
+ }
+</style>
 
-    <div id="user">
-    </div>
-    <a href="logout"> ログアウト&nbsp;
+    <body>
+        <div id="log">
+        </div>
+        <form id="form">
+            <input type="text" id="msg" size="64" autofocus />
+            <input type="submit" value="送信" />
+        </form>
+
+        <div id="user">
+        </div>
+        <a href="logout"> ログアウト&nbsp;
         </a>
-    <a href="userinfo">
+        <a href="userinfo">
             会員情報
         </a>
-</body>
+    </body>
 
 </html>
