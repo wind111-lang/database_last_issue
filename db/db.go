@@ -35,6 +35,7 @@ func CreateUser(username string, password string, birthday string) []error {
 	defer db.Close()
 
 	pass, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	//Passwordハッシュ化
 
 	var userinfo structs.User
 
@@ -94,4 +95,5 @@ func DeleteUser(user string) {
 	fmt.Println(user)
 
 	db.Table("members").Where("username = ?", user).Delete(&userinfo)
+	//クエリパラメータで指定したユーザを削除 この場合は指定したuserの情報が全て抹消される
 }

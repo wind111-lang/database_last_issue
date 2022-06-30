@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>
-    <meta charset="utf-8">
-    <title>会員情報</title>
-    <script src="./source/userinfo.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <title>会員情報</title>
+        <script src="./source/userinfo.js"></script>
 
-    <body>
-        <div id="user">
-        </div>
-        <a href="/"> 戻る&nbsp;
-            </a>
-        <a href="delete">
-                会員情報削除&nbsp;
-            </a>
-        <a href="update">会員情報更新</a>
-    </body>
+        <body>
+            <div id="user">
+            </div>
+            <input type="button" onclick="location.href='/'" value="戻る">
+            <input type="button" onclick="location.href='delete'"
+                value="会員情報削除">
+            <input type="button" onclick="location.href='update'"
+                value="会員情報更新">
+        </body>
 
-</html>
+    </html>
