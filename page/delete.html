@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>
-    <meta charset="utf-8">
-    <title>削除確認</title>
-</head>
-<script src="./source/userinfo.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="./source/favicon.ico">
+        <title>削除確認</title>
+    </head>
+    <script src="./source/userinfo.js"></script>
 
-<body>
-    <div id="user"></div>
-    <p>を削除します よろしいですか？</p>
-    <form method="post" action="/delete">
-        <input type="submit" value="はい">
-        <input type="button" onclick="location.href='userinfo'" value="いいえ">
-    </form>
-</body>
+    <body>
+        <div id="user"></div>
+        <p>を削除します よろしいですか？</p>
+        <form method="post" action="/delete">
+            <input type="submit" value="はい">
+            <input type="button" onclick="location.href='userinfo'" value="いいえ">
+        </form>
+    </body>
 
 </html>
