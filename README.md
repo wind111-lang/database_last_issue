@@ -7,6 +7,13 @@
 | Gorm(SQL Framework) | 1.9.16     |
 
 ##### ※ Linux,Mac を使用している前提
+##### .envファイルをmain.goのあるディレクトリに作成．　以下のような例で記述する．  
+```
+subscriptionKey=<your-azure-translation-subscriptionkey>
+location=japaneast
+endpoint=https://api.cognitive.microsofttranslator.com/
+uri=/translate?api-version=3.0
+```
 
 ## テーブルの概要
 
