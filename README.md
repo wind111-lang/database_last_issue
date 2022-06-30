@@ -53,22 +53,25 @@ Linux の場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql;
 
 - Linux の場合
   `sudo wget https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz`と入力して Go をダウンロードする．  
-  `sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz`と入力して tar を展開する．  
-  `.bash_profile`などのシェル構成ファイルに，
- 　　`echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile`  
-　　　　`echo 'export PATH=$HOME/go/bin:$PATH' >> ~/.bash_profile`  
-  `source .bash_profile`のようにプロファイルの再読み込みを行う．　　
-  （AlmaLinux8 で動作確認済み， Raspberry Piではシェル構成ファイルが`~/.bashrc`)
+   `sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz`と入力して tar を展開する．  
+   `.bash_profile`などのシェル構成ファイルに,
+  ```
+  echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile`
+  　echo 'export PATH=$HOME/go/bin:$PATH' >> ~/.bash_profile`
+  ```
+  と入力し, `source .bash_profile`のようにプロファイルの再読み込みを行う.  
+   （AlmaLinux8 で動作確認済み， Raspberry Pi ではシェル構成ファイルが`~/.bashrc`)
 
 ## 実行準備
 
 実行する前に，必要なモジュールを取得するために
-`go mod tidy`と入力してモジュールのインストールを行う  
+`go mod tidy`と入力してモジュールのインストールを行う
 
 参考記事: https://qiita.com/lamp7800/items/9a154e8e789261f87466
 
 ## 実行
-##### 予めXAMPPなどのデータベースのサービスを開始する． (port3306に指定すること)
+
+##### 予め XAMPP などのデータベースのサービスを開始する． (port3306 に指定すること)
 
 `go run main.go`と入力してサーバを開く  
 (`air`が導入されていれば`air -c .air.toml`でも可能)
