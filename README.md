@@ -53,12 +53,14 @@ Linux の場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql;
 
 - Linux の場合
   `sudo wget https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz`と入力して Go をダウンロードする．  
-  `sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz`と入力して tar を展開する．  
-  `.bash_profile`に，  
-  `export PATH=$PATH:/usr/local/go/bin`  
-  と入力して PATH を通し，
-  `source .bash_profile`と入力してプロファイルの再読み込みを行う．　　
-  （AlmaLinux8 で動作確認済み)
+  `sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz`と入力して tar を展開する． 
+  `.bash_profile`などのシェル構成ファイルに， 
+  ```
+ 　　　echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile
+　　　　　echo 'export PATH=$HOME/go/bin:$PATH' >> ~/.bash_profile
+  ```
+  `source .bash_profile`のようにプロファイルの再読み込みを行う．　　
+  （AlmaLinux8 で動作確認済み， Raspberry Piではシェル構成ファイルが`~/.bashrc`)
 
 ## 実行準備
 
