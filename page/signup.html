@@ -5,7 +5,32 @@
         <link rel="icon" href="./source/favicon.ico">
         <title>会員登録</title>
     </head>
+    <style>
+        body{
+            background-color: grey;
+            color: white;
+        }
+        h1{
+            text-align: center;
+            padding: auto;
+        }
+        form{
+            text-align:center;
+            padding: auto;
+
+            margin: auto;
+        }
+        p{
+            text-align:center;
+            padding: auto;
+        }
+        input{
+            text-align:center;
+            padding: auto;
+        }
+    </style>
     <body>
+        <h1>会員登録フォーム</h1>
         <div class="input">
             <p>{{.err}}</p>
             <form action="/signup" method="post">

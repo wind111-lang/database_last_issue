@@ -6,12 +6,34 @@
         <link rel="icon" href="./source/favicon.ico">
         <title>削除確認</title>
     </head>
-    <script src="./source/userinfo.js"></script>
+    <style>
+        body{
+            text-align: center;
+                padding: auto;
+                margin: auto;
+                background-color: grey;
+                color: white;
+        }
+        form{
+            text-align:center;
+            padding: auto;
 
+            margin: auto;
+        }
+        p{
+            text-align:center;
+            padding: auto;
+        }
+        input{
+            text-align:center;
+            padding: auto;
+        }
+    </style>
+    <script src="./source/userinfo.js"></script>
     <body>
         <div id="user"></div>
-        <p>を削除します よろしいですか？</p>
-        <form method="post" action="/delete">
+        <form method="delete" action="/delete">
+            <p>ユーザを削除します よろしいですか？</p>
             <input type="submit" value="はい">
             <input type="button" onclick="location.href='userinfo'" value="いいえ">
         </form>
