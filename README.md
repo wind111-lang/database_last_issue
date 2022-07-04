@@ -6,7 +6,7 @@
 | Gin(Web Framework)  | 1.8.1      |
 | Gorm(SQL Framework) | 1.9.16     |
 
-##### ※ Linux,Mac を使用している前提
+##### ※ Mac を使用している前提
 ##### .envファイルをmain.goのあるディレクトリに作成．　以下のような例で記述する．  
 ```
 subscriptionKey=<your-azure-translation-subscriptionkey>
@@ -33,9 +33,8 @@ uri=/translate?api-version=3.0
 ## データベース,テーブル,ユーザの作成,作成されたユーザへの権限付与
 
 db ディレクトリに`chatdb.sql`が入っているので，MySQL に root でログインした状態で，  
-Mac の場合,`source /Users/<your_username>/database_last_issue/db/chatdb.sql;`と入力する．  
-Linux の場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql;`と入力する．  
-そうすると，データベース，テーブル，ユーザ(user)が作成され，作成されたユーザに権限が付与される．
+`source /Users/<your_username>/database_last_issue/db/chatdb.sql;`と入力する．  
+
 
 ## 作成されたユーザへのログイン
 
@@ -58,16 +57,6 @@ Linux の場合,`source /home/<your_username>/database_last_issue/db/chatdb.sql;
   `zsh -l`と入力してプロファイルの再読み込みを行う．  
   (macOS 13 Ventura Developer Beta2 で動作確認済み)
 
-- Linux の場合
-  `sudo wget https://dl.google.com/go/go1.18.3.linux-amd64.tar.gz`と入力して Go をダウンロードする．  
-   `sudo tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz`と入力して tar を展開する．  
-   `.bash_profile`などのシェル構成ファイルに,
-  ```
-  echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile`
-  echo 'export PATH=$HOME/go/bin:$PATH' >> ~/.bash_profile`
-  ```
-  のように入力し, `source .bash_profile`のようにプロファイルの再読み込みを行う.  
-   （AlmaLinux8 で動作確認済み， Raspberry Pi ではシェル構成ファイルが`~/.bashrc`)
 
 ## 実行準備
 
