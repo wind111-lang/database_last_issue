@@ -33,20 +33,30 @@
             padding: auto;
         }
     </style>
-    <body>
-        <div id="user"></div>
-        <div class="input">
-            <p>{{.err}}</p>
-            <form action="/update" method="post">
-                <p>新しいユーザー名(変更しない場合は現在のユーザー名を入力) : <input type="text"
-                        name="username" placeholder="" /></p>
-                <p>新しいパスワード(変更しない場合は現在のパスワードを入力) : <input type="password"
-                        name="password" placeholder="" /></p>
-                <p><input type="submit" value="変更" /> <input type="button"
-                        onclick="location.href='userinfo'"
-                        value="戻る"></p>
+    <body
+        <div class="form-wrapper">
+            <h1>ログイン</h1>
+            <div class="err">{{.err}}</div>
+            <form action="/login" method="post">
+                <div class="form-item">
+                    <label for="username"></label>
+                    <input type="text" name="username" required="required"
+                        placeholder="新しいユーザー名(変更しない場合は現在のユーザー名を入力)" />
+                </div>
+                <div class="form-item">
+                    <label for="password"></label>
+                    <input type="password" name="password" required="required"
+                        placeholder="新しいパスワード(変更しない場合は現在のパスワードを入力)" />
+                </div>
+                <div class="button-panel">
+                    <input type="submit" class="button" title="更新"
+                        value="更新" />
+                </div>
+                <div class="button-panel2">
+                    <input type="button" class="button" title="戻る"
+                        value="戻る" />
+                </div>
             </form>
         </div>
     </body>
-
 </html>

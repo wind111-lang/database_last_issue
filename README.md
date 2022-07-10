@@ -1,13 +1,15 @@
 # database_last_issue
 
-| 使用技術            | バージョン |
-| ------------------- | ---------- |
-| Go                  | 1.18.3     |
-| Gin(Web Framework)  | 1.8.1      |
-| XAMPP | 8.1.6 Rev.0   |
+| 使用技術           | バージョン  |
+| ------------------ | ----------- |
+| Go                 | 1.18.3      |
+| Gin(Web Framework) | 1.8.1       |
+| XAMPP              | 8.1.6 Rev.0 |
 
 ##### ※ Mac を使用している前提
-##### .envファイルをmain.goのあるディレクトリに作成．　以下のような例で記述する．  
+
+##### .env ファイルを main.go のあるディレクトリに作成．　以下のような例で記述する．
+
 ```
 subscriptionKey=<your-azure-translation-subscriptionkey>
 location=japaneast
@@ -33,8 +35,7 @@ uri=/translate?api-version=3.0
 ## データベース,テーブル,ユーザの作成,作成されたユーザへの権限付与
 
 db ディレクトリに`chatdb.sql`が入っているので，MySQL に root でログインした状態で，  
-`source /Users/<your_username>/database_last_issue/db/chatdb.sql;`と入力する．  
-
+`source /Users/<your_username>/database_last_issue/db/chatdb.sql;`と入力する．
 
 ## 作成されたユーザへのログイン
 
@@ -44,19 +45,17 @@ db ディレクトリに`chatdb.sql`が入っているので，MySQL に root �
 
 ## Go のインストール
 
-- Mac の場合  
-  `brew install go`でインストールを行う．  
-  インストール完了後，`.zshrc`に，
+`brew install go`でインストールを行う．  
+ インストール完了後，`.zshrc`に，
 
-  ```
-  export GOPATH=$(go env GOPATH)
-  export PATH=$PATH:$GOPATH:bin
-  ```
+```
+export GOPATH=$(go env GOPATH)
+export PATH=$PATH:$GOPATH:bin
+```
 
-  と入力して PATH を通し，  
-  `zsh -l`と入力してプロファイルの再読み込みを行う．  
-  (macOS 13 Ventura Developer Beta2 で動作確認済み)
-
+と入力して PATH を通し，  
+ `zsh -l`と入力してプロファイルの再読み込みを行う．  
+ (macOS 13 Ventura Developer Beta2 で動作確認済み)
 
 ## 実行準備
 
