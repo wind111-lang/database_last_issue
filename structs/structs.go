@@ -26,10 +26,6 @@ type UpdateUser struct {
 	Password string `form:"password" binding:"required"`
 }
 
-// type LoggedInUser struct {
-// 	Username string `json:"username"`
-// }
-
 type Session struct {
 	UID interface{}
 }
