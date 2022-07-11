@@ -22,7 +22,7 @@ uri=/translate?api-version=3.0
 ### members テーブル
 
 - id bigint not null auto_increment
-- username varchar(128)
+- username varchar(128) unique
 - password varchar(128)
 - birthday char(10)
 
@@ -73,3 +73,12 @@ export PATH=$PATH:$GOPATH:bin
 
 GIN-debug に，`Listening and serving HTTP on <your-ip-address>:8081`  
 というのが流れてきたら，`<your-ip-address>:8081/login`でページのアクセスが可能になる．
+
+## 使い方(簡易版)
+ページにアクセスしたら，会員ではありませんか？をクリックしてアカウント作成する． 
+アカウント作成が完了したらログインページにリダイレクトするので，登録したアカウント  
+でログインする．  
+ログインが完了したらチャットボックスに文字を入力して送信ボタンをクリックすることで，  
+メッセージの送信が可能になる．
+
+アカウント更新とアカウント削除は，会員情報から行うことが可能である．  
