@@ -40,13 +40,9 @@ func main() {
 
 	router.GET("/login", func(ctx *gin.Context) {
 		ctx.HTML(200, "login.html", gin.H{})
-		//ip = websock.GetIP()
-		//fmt.Println(reflect.TypeOf(ip))
 	})
 
 	router.POST("/login", func(ctx *gin.Context) {
-		//ctx.SetSameSite(http.SameSiteNoneMode)
-
 		dbPassword := db.Getuser(ctx.PostForm("username")).Password
 		log.Println("Password is ", dbPassword)
 
@@ -63,13 +59,7 @@ func main() {
 			session.Set("username", ctx.PostForm("username"))
 			session.Save()
 
-			//key := ctx.MustGet(gin.AuthUserKey).(string)
-			//ip = websock.GetIP()
 			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
-			//ctx.Next()
-			//var usr structs.LoggedInUser
-			//usr.Username = ctx.PostForm("username")
-
 			ctx.Redirect(302, "/")
 		}
 	})
@@ -78,28 +68,22 @@ func main() {
 		ctx.HTML(200, "signup.html", gin.H{})
 	})
 	router.POST("/signup", func(ctx *gin.Context) {
-		var form structs.User //User struct
+		var form structs.User
 
 		if err := ctx.Bind(&form); err != nil {
-			ctx.HTML(400, "signup.html", gin.H{"err": "フォームを全て入力してください!"})
+			ctx.HTML(400, "signup.html", gin.H{"err": err})
 			ctx.Abort()
 		} else {
 			username := ctx.PostForm("username") //usernameを取得
 			password := ctx.PostForm("password") //passwordを取得
 			birthday := ctx.PostForm("birthday") //birthdayを取得
 
-			//log.Println(username, password, birthday)
-			//fmt.Println(username, password, birthday)
-
-			if db.CreateUser(username, password, birthday); err != nil {
+			if err = db.CreateUser(username, password, birthday); err != nil {
 				ctx.HTML(400, "signup.html", gin.H{"err": err})
-			}
-
-			//ip = websock.GetIP()
-
+			} else {
 			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
-
 			ctx.Redirect(302, "/redirect")
+			}
 		}
 	})
 
@@ -107,10 +91,6 @@ func main() {
 		ctx.HTML(200, "redirect.html", gin.H{})
 	})
 
-	// router.GET("/userinfo", func(ctx *gin.Context) {
-	// 	ctx.HTML(200, "userinfo.html", gin.H{})
-
-	// })
 	router.GET("/userinfo", func(ctx *gin.Context) {
 		ctx.HTML(200, "userinfo.html", gin.H{})
 
@@ -171,28 +151,22 @@ func main() {
 		var form structs.UpdateUser //User struct
 
 		if err := ctx.Bind(&form); err != nil {
-			ctx.HTML(400, "update.html", gin.H{"err": "フォームを全て入力してください!"})
+			ctx.HTML(400, "update.html", gin.H{"err":err})
 			ctx.Abort()
 		} else {
 			var userinfo structs.User
 
-			username := ctx.PostForm("username") //usernameを取得
-			password := ctx.PostForm("password") //passwordを取得
+			username := ctx.PostForm("username")
+			password := ctx.PostForm("password")
 
 			userinfo.Username = username
 			userinfo.Password = password
-
-			//log.Println(username, password, birthday)
-			//fmt.Println(username, password, birthday)
 
 			if db.UpdateUser(usr, userinfo); err != nil {
 				ctx.HTML(400, "update.html", gin.H{"err": err})
 			}
 
-			//ip = websock.GetIP()
-
 			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
-
 			ctx.HTML(302, "userinfo.html", gin.H{"err": "更新しました"})
 		}
 	})
@@ -223,7 +197,6 @@ func main() {
 		if err != nil {
 			log.Println("cookie is nil!!")
 			ctx.Redirect(302, "/login")
-
 			ctx.Abort()
 		} else {
 			log.Println("cookie is ", usr)
