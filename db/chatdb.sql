@@ -6,7 +6,7 @@ grant all privileges on chatdb.* to 'user'@'localhost';
 
 create table if not exists members(
 id bigint not null auto_increment,
-username varchar(128),
+username varchar(128) unique,
 password varchar(128),
 birthday char(10),
 primary key(id)

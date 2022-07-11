@@ -30,7 +30,7 @@ func gormConnect() *gorm.DB {
 	return db
 } //DBに接続
 
-func CreateUser(username string, password string, birthday string) []error {
+func CreateUser(username string, password string, birthday string) error {
 	db := gormConnect()
 	defer db.Close()
 
@@ -43,8 +43,8 @@ func CreateUser(username string, password string, birthday string) []error {
 	userinfo.Password = string(pass)
 	userinfo.Birthday = birthday
 
-	if err := db.Table("members").Create(&userinfo).GetErrors(); err != nil {
-		return err
+	if err := db.Table("members").Create(&userinfo); err.Error != nil {
+		return err.Error
 	}
 
 	return nil
