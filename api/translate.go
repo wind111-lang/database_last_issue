@@ -27,11 +27,6 @@ func Translate(msg []byte) []byte {
 	endpoint := os.Getenv("endpoint")
 	uri := endpoint + os.Getenv("uri")
 	//envファイルで読み込んだものを代入
-
-	//fmt.Println("Key:", Key, location, endpoint, uri)
-
-	//fmt.Println("OK")
-
 	//IMPORTANT PLEASE READ Check your subscriptionKey and location.
 
 	u, _ := url.Parse(uri)
@@ -45,7 +40,6 @@ func Translate(msg []byte) []byte {
 	u.RawQuery = q.Encode()
 	v.RawQuery = r.Encode()
 	//再翻訳するために２つ作成
-
 	//Create an anonymous struct for your request body and encode it to JSON
 	text := string(msg)
 
