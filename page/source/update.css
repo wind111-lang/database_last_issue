@@ -4,10 +4,19 @@
     box-sizing: border-box;
 }
 
+.user{
+    text-align: center;
+    margin: 0 auto;
+}
 /* body */
 body {
     background: white;
     color: black;
+}
+
+.err {
+    text-align: center;
+    color: red;
 }
 
 /* Form Layout */
@@ -21,12 +30,6 @@ body {
 h1 {
     text-align: center;
     padding: 1em 0;
-}
-
-p {
-    text-align: center;
-    padding: auto;
-    color: red;
 }
 
 form {
@@ -57,6 +60,10 @@ form {
 .button-panel {
     margin: 2em 0 0;
     width: 100%;
+}
+
+.button {
+    margin: auto;
 }
 
 .button-panel .button {

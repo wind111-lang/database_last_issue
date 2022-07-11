@@ -1,52 +1,27 @@
 <!DOCTYPE html>
 <html lang="ja">
-
     <head>
         <meta charset="utf-8">
         <title>会員情報変更</title>
         <link rel="icon" href="./source/favicon.ico">
     </head>
     <script src="./source/userinfo.js"></script>
-    <style>
-        .err {
-            color: red;
-        }
-        body{
-        text-align: center;
-        padding: auto;
-        margin: auto;
-        background-color: grey;
-        color: white;
-        }
-        form{
-            text-align:center;
-            padding: auto;
-
-            margin: auto;
-        }
-        p{
-            text-align:center;
-            padding: auto;
-        }
-        input{
-            text-align:center;
-            padding: auto;
-        }
-    </style>
-    <body
+    <link rel="stylesheet" href="./source/update.css">
+    <body>
         <div class="form-wrapper">
-            <h1>ログイン</h1>
+            <h1>ユーザ情報更新</h1>
             <div class="err">{{.err}}</div>
-            <form action="/login" method="post">
+            <div class="user"></div>
+            <form action="/update" method="post">
                 <div class="form-item">
                     <label for="username"></label>
                     <input type="text" name="username" required="required"
-                        placeholder="新しいユーザー名(変更しない場合は現在のユーザー名を入力)" />
+                        placeholder="新しいユーザー名" />
                 </div>
                 <div class="form-item">
                     <label for="password"></label>
                     <input type="password" name="password" required="required"
-                        placeholder="新しいパスワード(変更しない場合は現在のパスワードを入力)" />
+                        placeholder="新しいパスワード" />
                 </div>
                 <div class="button-panel">
                     <input type="submit" class="button" title="更新"
@@ -54,7 +29,7 @@
                 </div>
                 <div class="button-panel2">
                     <input type="button" class="button" title="戻る"
-                        value="戻る" />
+                        onclick="location.href='userinfo'" value="戻る" />
                 </div>
             </form>
         </div>

@@ -1,42 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
-
     <head>
         <meta charset="utf-8">
         <link rel="icon" href="./source/favicon.ico">
         <title>削除確認</title>
     </head>
-    <style>
-        body{
-            text-align: center;
-                padding: auto;
-                margin: auto;
-                background-color: grey;
-                color: white;
-        }
-        form{
-            text-align:center;
-            padding: auto;
-
-            margin: auto;
-        }
-        p{
-            text-align:center;
-            padding: auto;
-        }
-        input{
-            text-align:center;
-            padding: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="./source/delete.css">
     <script src="./source/userinfo.js"></script>
     <body>
         <div id="user"></div>
-        <form method="delete" action="/delete">
-            <p>ユーザを削除します よろしいですか？</p>
-            <input type="submit" value="はい">
-            <input type="button" onclick="location.href='userinfo'" value="いいえ">
+        <h1>ユーザを削除します よろしいですか？<h1></h1>
+        <form method="post" action="/delete">
+            <div class="button-panel">
+                    <input type="submit" class="button" title="はい"
+                        value="はい" />
+                </div>
+                <div class="button-panel2">
+                    <input type="button" class="button" title="いいえ"
+                        onclick="location.href='userinfo'" value="いいえ" />
+                </div>
         </form>
     </body>
-
 </html>
