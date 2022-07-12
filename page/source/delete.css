@@ -1,9 +1,24 @@
-p {
+.h1 {
     text-align: center;
-    padding: auto;
+}
+
+form {
+    padding: 0 1.5em;
+}
+
+.form-wrapper {
+    background: white;
+    margin: 3em auto;
+    padding: 0 1em;
+    max-width: 370px;
 }
 
 .button-panel {
+    margin: 2em 0 0;
+    width: 100%;
+}
+
+.button-panel2 {
     margin: 2em 0 0;
     width: 100%;
 }
