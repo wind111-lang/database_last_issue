@@ -1,54 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
-
     <head>
         <title>チャットページ</title>
         <meta charset="utf-8">
         <link rel="icon" href="./source/favicon.ico">
+        <link rel = "stylesheet" href="./source/index.css">
         <script src="./source/websocket.js"></script>
     </head>
-
-    <style>
-    html {
-        overflow: hidden;
-    }
-
-    body {
-        overflow: hidden;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        background: gray;
-    }
-
-    #log {
-        background: white;
-        margin: 0;
-        padding: 0.3em 0.3em 0.3em 0.3em;
-        position: absolute;
-        top: 4em;
-        left: 1em;
-        right: 1em;
-        bottom: 6em;
-        overflow: auto;
-    }
-
-    #form {
-        padding: 0 1em 0 1em;
-        margin: 0;
-        position: absolute;
-        bottom: 2em;
-        left: 0px;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    #user {
-        color: white;
-    }
-</style>
-
     <body>
         <div id="log">
         </div>
@@ -56,11 +14,8 @@
             <input type="text" id="msg" size="64" autofocus />
             <input type="submit" value="送信" />
         </form>
-
-        <div id="user">
-        </div>
+        <div id="user"></div>
         <input type="button" onclick="location.href='logout'" value="ログアウト">
         <input type="button" onclick="location.href='userinfo'" value="会員情報">
     </body>
-
 </html>

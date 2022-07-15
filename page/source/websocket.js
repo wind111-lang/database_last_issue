@@ -3,11 +3,6 @@
             var msg = document.getElementById("msg");
             var log = document.getElementById("log");
 
-            //console.log(gotcookie.indexOf("user="));
-
-            // var body ='{userName:"Sarah", password: "' + FakePass + '"}';
-
-
             function appendLog(item) {
                 var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
                 log.appendChild(item);
@@ -28,7 +23,6 @@
                     return false;
                 }
                 conn.send(json_obj);
-                console.log(json);
                 msg.value = "";
                 return false;
             };
@@ -45,15 +39,8 @@
                 }
 
                 var user = document.getElementById("user");
-
                 user.innerHTML = userName + ' でログインしています';
 
-                console.log(gotcookie);
-                // conn.onclose = function(evt) {
-                //     var item = document.createElement("div");
-                //     item.innerHTML = "<b>Connection closed.</b>";
-                //     appendLog(item);
-                // };
                 conn.onmessage = function(evt) {
                     var res = evt.data;
                     var data = JSON.parse(res);
@@ -66,13 +53,6 @@
 
                     item.innerText = fullmsg;
                     appendLog(item);
-                    // var messages = evt.data.split('\n');
-                    //for (var i = 0; i < messages.length; i++) {
-                    //   var item = document.createElement("div");
-                    //    item.innerText = messages[i];
-                    //    //console.log(messages[i])
-                    //    appendLog(item);
-                    //}
                 };
             } else {
                 var item = document.createElement("div");
