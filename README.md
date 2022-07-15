@@ -35,7 +35,7 @@ uri=/translate?api-version=3.0
 ## データベース,テーブル,ユーザの作成,作成されたユーザへの権限付与
 
 db ディレクトリに`chatdb.sql`が入っているので，MySQL に root でログインした状態で，  
-`source /Users/<your_username>/database_last_issue/db/chatdb.sql;`と入力する．
+`\. /Users/<your_username>/database_last_issue/db/chatdb.sql`と入力する．
 
 ## 作成されたユーザへのログイン
 
@@ -55,12 +55,14 @@ export PATH=$PATH:$GOPATH:bin
 
 と入力して PATH を通し，  
  `zsh -l`と入力してプロファイルの再読み込みを行う．  
- (macOS 13 Ventura Developer Beta2 で動作確認済み)
+ (macOS 13 Ventura Developer Beta3 で動作確認済み)
 
 ## 実行準備
 
 実行する前に，必要なモジュールを取得するために
-`go mod tidy`と入力してモジュールのインストールを行う
+`go mod tidy`と入力してモジュールのインストールを行う  
+(go run main.go時にインストールされるらしいので必要ないかも)
+
 
 参考記事: https://qiita.com/lamp7800/items/9a154e8e789261f87466
 
@@ -75,10 +77,11 @@ GIN-debug に，`Listening and serving HTTP on <your-ip-address>:8081`
 というのが流れてきたら，`<your-ip-address>:8081/login`でページのアクセスが可能になる．
 
 ## 使い方(簡易版)
-ページにアクセスしたら，会員ではありませんか？をクリックしてアカウント作成する． 
+
+ページにアクセスしたら，会員ではありませんか？をクリックしてアカウント作成する．
 アカウント作成が完了したらログインページにリダイレクトするので，登録したアカウント  
 でログインする．  
 ログインが完了したらチャットボックスに文字を入力して送信ボタンをクリックすることで，  
-メッセージの送信が可能になる．
+メッセージの送信が可能になる．  
 
-アカウント更新とアカウント削除は，会員情報から行うことが可能である．  
+アカウント更新とアカウント削除は，会員情報から行うことが可能である．
