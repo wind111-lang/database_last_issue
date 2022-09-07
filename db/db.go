@@ -5,9 +5,9 @@ import (
 
 	"chat/structs"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 // type Loc struct {
@@ -21,18 +21,22 @@ func gormConnect() *gorm.DB {
 	hostname := "localhost:3306"
 	name := "chatdb"
 
-	db, err := gorm.Open("mysql", user+":"+password+"@tcp("+hostname+")/"+name)
+	db, err := gorm.Open(mysql.Open(user+":"+password+"@tcp("+hostname+")/"+name), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Connected to DB")
+	//fmt.Println("Connected to DB")
 
 	return db
 } //DBに接続
 
 func CreateUser(username string, password string, birthday string) error {
 	db := gormConnect()
-	defer db.Close()
+	tempdb, err := db.DB()
+	if err != nil {
+		panic(err)
+	}
+	defer tempdb.Close()
 
 	pass, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	//Passwordハッシュ化
@@ -52,7 +56,11 @@ func CreateUser(username string, password string, birthday string) error {
 
 func Getuser(username string) structs.User {
 	db := gormConnect()
-	defer db.Close()
+	tempdb, err := db.DB()
+	if err != nil {
+		panic(err)
+	}
+	defer tempdb.Close()
 
 	var userinfo structs.User
 
@@ -63,7 +71,11 @@ func Getuser(username string) structs.User {
 
 func InsertMessage(user string, message string) {
 	db := gormConnect()
-	defer db.Close()
+	tempdb, err := db.DB()
+	if err != nil {
+		panic(err)
+	}
+	defer tempdb.Close()
 
 	var chatlog structs.ChatLog
 
@@ -75,7 +87,11 @@ func InsertMessage(user string, message string) {
 
 func UpdateUser(olduser string, newuser structs.User) {
 	db := gormConnect()
-	defer db.Close()
+	tempdb, err := db.DB()
+	if err != nil {
+		panic(err)
+	}
+	defer tempdb.Close()
 
 	var userinfo structs.User
 
@@ -84,12 +100,16 @@ func UpdateUser(olduser string, newuser structs.User) {
 	userinfo.Username = newuser.Username
 	userinfo.Password = string(pass)
 
-	db.Table("members").Where("username = ?", olduser).Update(&userinfo)
+	db.Table("members").Where("username = ?", olduser).Update(userinfo.Username, userinfo.Password)
 }
 
 func DeleteUser(user string) {
 	db := gormConnect()
-	defer db.Close()
+	tempdb, err := db.DB()
+	if err != nil {
+		panic(err)
+	}
+	defer tempdb.Close()
 
 	var userinfo structs.User
 	fmt.Println(user)
