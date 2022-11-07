@@ -27,6 +27,8 @@ func Logout(ctx *gin.Context) {
 }
 
 func main() {
+        gin.SetMode(gin.ReleaseMode)
+
 	router := gin.Default()
 	router.LoadHTMLGlob("page/*.html")
 	router.Static("/source", "page/source/")
@@ -243,6 +245,7 @@ func main() {
 	ip = websock.GetIP()
 
 	fmt.Println("Server is running on", ip+":8081")
-	router.Run(ip + ":8081")
+    //router.Run(ip + ":8081)
+	router.RunTLS(ip + ":8081","ssl/server.crt","ssl/server.key")
 
 }

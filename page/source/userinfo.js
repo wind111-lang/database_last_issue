@@ -1,5 +1,8 @@
 window.onload = function() {
-    conn = new WebSocket("ws://" + document.location.host + "/ws");
+    if(window.location.protocol == 'http:'){
+      window.location.protocol = 'https:';
+    }
+    conn = new WebSocket("wss://" + document.location.host + "/ws");
     var gotcookie = document.cookie;
     var cokkieItem = gotcookie.split(";");
     for (i = 0; i < cokkieItem.length; i++) {

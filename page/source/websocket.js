@@ -2,6 +2,10 @@
             var conn;
             var msg = document.getElementById("msg");
             var log = document.getElementById("log");
+            
+            if(window.location.protocol == 'http:'){
+              window.location.protocol = 'https:';
+            }
 
             function appendLog(item) {
                 var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
@@ -28,7 +32,7 @@
             };
 
             if (window["WebSocket"]) {
-                conn = new WebSocket("ws://" + document.location.host + "/ws");
+                conn = new WebSocket("wss://" + document.location.host + "/ws");
                 var gotcookie = document.cookie;
                 var cokkieItem = gotcookie.split(";");
                 for (i = 0; i < cokkieItem.length; i++) {
