@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"chat/structs"
 	"encoding/json"
-	"fmt"
+	_"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
