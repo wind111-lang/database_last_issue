@@ -10,16 +10,9 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 func Translate(msg []byte) []byte {
-	err := godotenv.Load(fmt.Sprintf("%s.env", os.Getenv("key")))
-	if err != nil {
-		fmt.Println("Error loading environment")
-		log.Fatal(err)
-	}
 	//envファイル読み込み処理
 
 	Key := os.Getenv("subscriptionKey")
