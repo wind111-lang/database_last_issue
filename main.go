@@ -244,8 +244,7 @@ func main() {
 
 	ip = websock.GetIP()
 
-	fmt.Println("Server is running on", ip+":8081")
-    //router.Run(ip + ":8081)
-	router.RunTLS(ip + ":8081","ssl/server.crt","ssl/server.key")
-
+	fmt.Println("Server is running on", ip+":80")
+    router.Run(ip + ":80")
+	//router.RunTLS(ip + ":8081","ssl/server.crt","ssl/server.key")
 }
