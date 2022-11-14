@@ -2,11 +2,12 @@ package db
 
 import (
 	"fmt"
+	"os"
 
 	"chat/structs"
 
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -16,12 +17,15 @@ import (
 
 func gormConnect() *gorm.DB {
 
-	user := "user"
-	password := "hoge"
-	hostname := "localhost:3306"
-	name := "chatdb"
+	user := os.Getenv("dbuser")
+	password := os.Getenv("dbpass")
+	hostname := os.Getenv("host")
+	name := os.Getenv("dbname")
+	port := os.Getenv("port")
 
-	db, err := gorm.Open(mysql.Open(user+":"+password+"@tcp("+hostname+")/"+name), &gorm.Config{})
+	dsn := "host=" + hostname + " user=" + user + " password=" + password + " dbname=" + name + " port=" + port + " sslmode=enable TimeZone=Asia/Tokyo"
+
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
