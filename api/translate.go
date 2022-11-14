@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"chat/structs"
 	"encoding/json"
-	_"fmt"
+	_ "fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -20,6 +20,7 @@ func Translate(msg []byte) []byte {
 	endpoint := os.Getenv("endpoint")
 	uri := endpoint + os.Getenv("uri")
 	//envファイルで読み込んだものを代入
+	
 	//IMPORTANT PLEASE READ Check your subscriptionKey and location.
 
 	u, _ := url.Parse(uri)

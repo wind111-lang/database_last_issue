@@ -27,7 +27,7 @@ func Logout(ctx *gin.Context) {
 }
 
 func main() {
-        gin.SetMode(gin.ReleaseMode)
+	//gin.SetMode(gin.ReleaseMode)
 
 	router := gin.Default()
 	router.LoadHTMLGlob("page/*.html")
@@ -83,8 +83,8 @@ func main() {
 			if err = db.CreateUser(username, password, birthday); err != nil {
 				ctx.HTML(400, "signup.html", gin.H{"err": err})
 			} else {
-			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
-			ctx.Redirect(302, "/redirect")
+				ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
+				ctx.Redirect(302, "/redirect")
 			}
 		}
 	})
@@ -153,7 +153,7 @@ func main() {
 		var form structs.UpdateUser //User struct
 
 		if err := ctx.Bind(&form); err != nil {
-			ctx.HTML(400, "update.html", gin.H{"err":err})
+			ctx.HTML(400, "update.html", gin.H{"err": err})
 			ctx.Abort()
 		} else {
 			var userinfo structs.User
@@ -244,7 +244,7 @@ func main() {
 
 	ip = websock.GetIP()
 
-	fmt.Println("Server is running on", ip+":80")
-    router.Run(ip + ":80")
+	fmt.Println("Server is running on", ip+":8081")
+	router.Run(ip + ":8081")
 	//router.RunTLS(ip + ":8081","ssl/server.crt","ssl/server.key")
 }
