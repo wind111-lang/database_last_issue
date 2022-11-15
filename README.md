@@ -1,10 +1,12 @@
 # database_last_issue
 
+ここで実際の動作を試すことが出来ます:https://retranslate-chat.onrender.com/login
+
 | 使用技術           | バージョン  |
 | ------------------ | ----------- |
 | Go                 | 1.18.3      |
 | Gin(Web Framework) | 1.8.1       |
-| XAMPP              | 8.1.6 Rev.0 |
+<!--| XAMPP              | 8.1.6 Rev.0 |-->
 
 ##### ※ Mac を使用している前提
 
