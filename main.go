@@ -19,7 +19,7 @@ var ip string
 func Logout(ctx *gin.Context) {
 	session := sessions.Default(ctx)
 	//ip = websock.GetIP()
-	ctx.SetCookie("user", "", -1, "/", ip, false, false)
+	ctx.SetCookie("user", "", -1, "/", "retranslate-chat.onrender.com", false, false)
 
 	session.Clear()
 	session.Save()
@@ -61,7 +61,7 @@ func main() {
 			session.Set("username", ctx.PostForm("username"))
 			session.Save()
 
-			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
+			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", "retranslate-chat.onrender.com", false, false)
 			ctx.Redirect(302, "/")
 		}
 	})
@@ -83,7 +83,7 @@ func main() {
 			if err = db.CreateUser(username, password, birthday); err != nil {
 				ctx.HTML(400, "signup.html", gin.H{"err": err})
 			} else {
-				ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
+				ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", "retranslate-chat.onrender.com", false, false)
 				ctx.Redirect(302, "/redirect")
 			}
 		}
@@ -168,7 +168,7 @@ func main() {
 				ctx.HTML(400, "update.html", gin.H{"err": err})
 			}
 
-			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", ip, false, false)
+			ctx.SetCookie("user", ctx.PostForm("username"), 3600, "/", "retranslate-chat.onrender.com", false, false)
 			ctx.HTML(302, "userinfo.html", gin.H{"err": "更新しました"})
 		}
 	})
