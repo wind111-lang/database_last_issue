@@ -240,11 +240,8 @@ func main() {
 
 	go hub.Run()
 
-	//db.GetDatabase()
-
 	ip = websock.GetIP()
 
 	fmt.Println("Server is running on", ":443")
-	//router.Run(":10000")
 	router.RunTLS(":443","../../etc/letsencrypt/live/retranslate-chatroom.com/fullchain.pem","../../etc/letsencrypt/live/retranslate-chatroom.com/privkey.pem")
 }
