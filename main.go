@@ -27,7 +27,7 @@ func Logout(ctx *gin.Context) {
 }
 
 func main() {
-	//gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.Default()
 	router.LoadHTMLGlob("page/*.html")
@@ -241,7 +241,6 @@ func main() {
 	go hub.Run()
 
 	ip = websock.GetIP()
-
-	fmt.Println("Server is running on", ":443")
-	router.RunTLS(":443","../../etc/letsencrypt/live/retranslate-chatroom.com/fullchain.pem","../../etc/letsencrypt/live/retranslate-chatroom.com/privkey.pem")
+	fmt.Println("Server is running on", ":8888")
+	router.RunTLS("172.31.12.5:8888","/etc/letsencrypt/live/retranslate-chatroom.com/fullchain.pem","/etc/letsencrypt/live/retranslate-chatroom.com/privkey.pem")
 }
