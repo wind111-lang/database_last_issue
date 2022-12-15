@@ -9,14 +9,16 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"github.com/joho/godotenv"
 )
 
-// type Loc struct {
-// 	Location string `json:"location"`
-// }
 
 func gormConnect() *gorm.DB {
-
+ 
+	err := godotenv.Load(fmt.Sprintf("%s.env",os.Getenv("key")))
+	if err != nil{
+	    fmt.Println("Error loading env")
+	}
 	user := os.Getenv("dbuser")
 	password := os.Getenv("dbpass")
 	hostname := os.Getenv("host")
