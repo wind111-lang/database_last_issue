@@ -1,6 +1,6 @@
 # database_last_issue
 
-ここで実際の動作を試すことが出来ます:https://retranslate-chat.onrender.com/login
+ここで実際の動作を試すことが出来ます:https://retranslate-chatroom.com/login
 
 | 使用技術           | バージョン  |
 | ------------------ | ----------- |
