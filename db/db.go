@@ -2,32 +2,23 @@ package db
 
 import (
 	"fmt"
-	"os"
+	_"os"
 
 	"chat/structs"
 
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"github.com/joho/godotenv"
 )
 
 
 func gormConnect() *gorm.DB {
- 
-	err := godotenv.Load(fmt.Sprintf("%s.env",os.Getenv("key")))
-	if err != nil{
-	    fmt.Println("Error loading env")
-	}
-	user := os.Getenv("dbuser")
-	password := os.Getenv("dbpass")
-	hostname := os.Getenv("host")
-	name := os.Getenv("dbname")
-	port := os.Getenv("port")
+	dbname := "chatdb"
 
-	dsn := "host=" + hostname + " user=" + user + " password=" + password + " dbname=" + name + " port=" + port + " sslmode=disable TimeZone=Asia/Tokyo"
+        //root:hogeは任意で変更
+	dsn :=  "root:hoge@tcp(127.0.0.1:13306)" + "/" + dbname + "?charset=utf8mb4&parseTime=True&loc=Local"
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

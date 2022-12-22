@@ -6,8 +6,11 @@ services:
       -  ./dbdata:/var/lib/mysql
     ports:
         - "13306:3306"
+    expose:
+        - "3306"
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "hoge"
 volumes:
-  db_data:
+  dbdata:
 
