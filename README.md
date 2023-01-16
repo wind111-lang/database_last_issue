@@ -1,5 +1,7 @@
 # database_last_issue
 
+## ※このドキュメントは現在修正中です
+
 ここで実際の動作を試すことが出来ます:https://retranslate-chatroom.com/login
 
 | 使用技術           | バージョン  |
