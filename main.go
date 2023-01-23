@@ -242,5 +242,5 @@ func main() {
 
 	ip = websock.GetIP()
 	fmt.Println("Server is running on", ":8888")
-	router.RunTLS(":8888","/etc/letsencrypt/live/retranslate-chatroom.com/fullchain.pem","/etc/letsencrypt/live/retranslate-chatroom.com/privkey.pem")
+	router.RunTLS(":8888","fullchain.pem","privkey.pem")
 }
