@@ -13,13 +13,13 @@
 ##### ※ Mac を使用している前提
 
 ##### .env ファイルを main.go のあるディレクトリに作成．　以下のような例で記述する．
-
 ```
 subscriptionKey=<your-azure-translation-subscriptionkey>
 location=japaneast
 endpoint=https://api.cognitive.microsofttranslator.com/
 uri=/translate?api-version=3.0
 ```
+------> 現在Godotenvを採用していないため、各自以上の値を入力する
 
 ## テーブルの概要
 
@@ -60,6 +60,10 @@ export PATH=$PATH:$GOPATH:bin
 と入力して PATH を通し，  
  `zsh -l`と入力してプロファイルの再読み込みを行う．  
  (macOS 13 Ventura Developer Beta3 で動作確認済み)
+ 
+## Dockerのコンテナを立てる
+
+dockerフォルダに入り、docker compose up -d でdockerのコンテナを立てる
 
 ## 実行準備
 
@@ -77,8 +81,8 @@ export PATH=$PATH:$GOPATH:bin
 `go run main.go`と入力してサーバを開く  
 (`air`が導入されていれば`air -c .air.toml`でも可能)
 
-GIN-debug に，`Listening and serving HTTP on <your-ip-address>:8081`  
-というのが流れてきたら，`<your-ip-address>:8081/login`でページのアクセスが可能になる．
+GIN-debug に，`Listening and serving HTTP on <your-ip-address>:8888`  
+というのが流れてきたら，`<your-ip-address>:8888/login`でページのアクセスが可能になる．
 
 ## 使い方(簡易版)
 
