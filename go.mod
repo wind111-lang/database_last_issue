@@ -8,7 +8,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	golang.org/x/crypto v0.5.0
 	gorm.io/driver/mysql v1.4.7
-	gorm.io/gorm v1.24.1-0.20221019064659-5dd2bb482755
+	gorm.io/gorm v1.24.6
 )
 
 require (
